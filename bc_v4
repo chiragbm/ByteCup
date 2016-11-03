@@ -1,0 +1,36 @@
+'''
+Created on Nov 3, 2016
+
+@author: chira
+'''
+import numpy
+import pandas
+
+
+def get_mean_median(train_x):
+    
+    mean = numpy.mean(train_x, axis = 0)
+    std = numpy.std(train_x, axis=0, ddof = 1)
+    
+    return mean, std
+
+def normalize_data(d_x, col):
+    
+    train_x = d_x[col]
+    
+    mean, std = get_mean_median(train_x)
+    
+    for i in range(len(d_x)):
+        train_x[i]   = (train_x[i] - mean) / std
+
+
+train_file = 'training_data.txt'
+train_data = pandas.read_csv(train_file,  sep = ',', header=None)
+
+
+
+normalize_data(train_data, 165)
+normalize_data(train_data, 164)
+normalize_data(train_data, 163)
+
+print train_data[163]
